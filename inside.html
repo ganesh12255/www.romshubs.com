@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROMsHuB.com</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f5f5f5;
+            color: black;
+            transition: 0.3s;
+        }
+        .dark-mode {
+            background: #1a1a1a;
+            color: white;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        input {
+            padding: 10px;
+            width: 300px;
+            border: 2px solid #ff6600;
+            border-radius: 5px;
+            display: block;
+            margin: 10px auto;
+        }
+        button {
+            padding: 10px 15px;
+            background: #ff6600;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .game {
+            background: #222;
+            padding: 15px;
+            margin: 10px auto;
+            width: 50%;
+            border-radius: 5px;
+            color: white;
+        }
+        .game img {
+            width: 150px;
+            height: auto;
+            border-radius: 5px;
+        }
+        .game button {
+            background: #28a745;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            margin-top: 10px;
+        }
+        #theme-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff6600;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+                .footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 50px;
+        }
+        .footer a {
+            color: #ff6600;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .footer a:hover {
+            color: #ffffff;
+        }
+        img{
+          max-width: 380px;
+          color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="24.jpg" alt="24.jpg">
+        <button id="theme-toggle">🌙</button>
+
+        <h2>🔍 Search Games 🎮 Download and Play</h2>
+        <input type="text" id="searchBox" placeholder="Enter game name...">
+        <button onclick="searchGame()"><i class="fas fa-search"></i> Search</button>
+
+        <div id="results"></div>
+    </div>
+         <h2>🔥 Recommended Games</h2>
+        <div id="recommended"></div>
+
+    </div>
+    <!-- Footer Section -->
+    <div class="footer">
+        <p>© 2025 ROMsHuB.com | All rights reserved.</p>
+        <p>
+            Follow us on:
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+        </p>
+    </div>
+
+    <script>
+        document.getElementById("theme-toggle").addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+        });
+
+        // Game database with direct download
+        const gameDatabase = {
+            "Super Mario 64": {
+                image: "https://upload.wikimedia.org/wikipedia/en/6/6a/Super_Mario_64_box_cover.jpg",
+                description: "Super Mario 64 is a platform game developed and published by Nintendo.",
+                download: "https://archive.org/download/N64SM64USA/N64SM64USA.zip"
+            },
+            "The Legend of Zelda": {
+                image: "https://upload.wikimedia.org/wikipedia/en/e/e1/The_Legend_of_Zelda_cover.png",
+                description: "The Legend of Zelda is an action-adventure game developed and published by Nintendo.",
+                download: "https://archive.org/download/NESTheLegendOfZelda/NESTheLegendOfZelda.zip"
+            },
+            "Pokemon Fire Red": {
+                image: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Pokemon_FireRed.jpg/220px-Pokemon_FireRed.jpg",
+                description: "Pokémon FireRed is a role-playing video game developed by Game Freak and published by Nintendo.",
+                download: "https://archive.org/download/GBAFireRed/GBAFireRed.zip"
+            }
+        };
+
+        function searchGame() {
+            let query = document.getElementById('searchBox').value.trim();
+            let resultsDiv = document.getElementById("results");
+
+            if (query === "") {
+                alert("Please enter a game name.");
+                return;
+            }
+
+            resultsDiv.innerHTML = `<p>🔄 Searching for "${query}"...</p>`;
+
+            setTimeout(() => {
+                if (gameDatabase[query]) {
+                    let game = gameDatabase[query];
+                    resultsDiv.innerHTML = `
+                        <h2>Search Results for "${query}"</h2>
+                        <div class="game">
+                            <h3>${query}</h3>
+                            <img src="${game.image}" alt="${query}">
+                            <p>${game.description}</p>
+                            <br>
+                            <a href="${game.download}" download>
+                                <button>⬇️ Download</button>
+                            </a>
+                        </div>
+                    `;
+                } else {
+                    resultsDiv.innerHTML = `
+                        <h2>No correct mean for "${query}"</h2>
+                        <p>Try searching on ROMsHuB:</p>
+                        <iframe src="https://romsfun.com/?s=${encodeURIComponent(query)}" width="100%" height="1000px"></iframe>
+                    `;
+                }
+            }, 2000);
+        }
+                function loadRecommendedGames() {
+            let recommendedDiv = document.getElementById("recommended");
+            recommendedDiv.innerHTML = `
+                <div class="game">
+                    <h3>Super Mario 64</h3>
+                    <img src="https://upload.wikimedia.org/wikipedia/en/6/6a/Super_Mario_64_box_cover.jpg" alt="Super Mario 64">
+                    <p>Platform: N64</p>
+                    <button onclick="window.open('https://www.romsgames.net/?s=Super+Mario+64', '_blank')">⬇️ Download</button>
+                </div>
+                <div class="game">
+                    <h3>Pokemon Fire Red</h3>
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Pokemon_FireRed.jpg/220px-Pokemon_FireRed.jpg" alt="Pokemon Fire Red">
+                    <p>Platform: GBA</p>
+                    <button onclick="window.open('https://www.romsgames.net/?s=Pokemon+Fire+Red', '_blank')">⬇️ Download</button>
+                </div>
+            `;
+        }
+
+        loadRecommendedGames();
+    </script>
+</body>
+</html>
